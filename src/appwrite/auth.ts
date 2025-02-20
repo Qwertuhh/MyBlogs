@@ -29,7 +29,7 @@ class Auth {
       );
       return response ? this.login({ name, password }) : response; //! fix afterward
     } catch (e) {
-      console.error(e);
+      console.error("Auth :: createAccount",e);
     }
   }
 
@@ -43,9 +43,11 @@ class Auth {
 
   async getUser() {
     try {
-      return await this.account.get();
+      const user = await this.account.get();
+      // Logged in
+      return user;
     } catch (e) {
-      console.error(e);
+      console.error("Auth :: getUser",e);
     }
     return null;//?To Handle Error
   }
