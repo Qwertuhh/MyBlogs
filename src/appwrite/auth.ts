@@ -27,15 +27,15 @@ class Auth {
         password,
         name
       );
-      return response ? this.login({ name, password }) : response; //! fix afterward
+      return response ? this.login({ email, password }) : response; 
     } catch (e) {
       console.error("Auth :: createAccount",e);
     }
   }
 
-  async login({ name, password }: { name: string; password: string }) {
+  async login({ email, password }: { email: string; password: string }) {
     try {
-      return await this.account.createEmailPasswordSession(name, password);
+      return await this.account.createEmailPasswordSession(email, password);
     } catch (e) {
       console.error(e);
     }
