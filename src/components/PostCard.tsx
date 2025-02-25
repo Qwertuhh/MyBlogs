@@ -4,18 +4,18 @@ import { Link } from "react-router-dom";
 function PostCard({
   $id,
   title,
-  image,
+  featuredImage,
   date,
 }: {
   $id: string;
   title: string;
-  image: string;
+  featuredImage: string;
   date: string;
 }) {
   return (
     <Link to={`/posts/${$id}`} className="flex gap-4">
       <img
-        src={Images.getImage(image)}
+        src={Images.getImage(featuredImage)}
         alt={title}
         className="w-48 h-48 object-cover"
       />

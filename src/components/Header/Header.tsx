@@ -1,14 +1,13 @@
+import { Container, Logo } from "../index";
 import LogoutBtn from "./LogoutBtn";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AuthState } from "../../types/globalTypes";
-import Container from "../Container/Container";
-import Logo from "../Logo";
 
 function Header() {
-  const authStatus = useSelector(
-    (state: { auth: AuthState }) => state.auth.status
-  );
+  const authStatus = useSelector((state: { auth: AuthState }) => state.auth.status ?? false);
+  console.assert(authStatus);
   const navigate = useNavigate();
 
   const navItems = [
@@ -40,35 +39,34 @@ function Header() {
   ];
 
   return (
-    <header className="flex justify-between items-center p-4 bg-gray-800 text-white">
+    <header className="py-3 shadow bg-gray-500">
       <Container>
-        <>
-          <nav>
-            <div>
-              <Logo width="100px" />
-            </div>
-            <ul className="flex space-x-4">
-              {navItems.map((item) =>
-                item.active ? (
-                  <li key={item.slug}>
-                    <button
-                      onClick={() => navigate(item.slug)}
-                      key={item.slug}
-                      className="inline-bock px-6 py-2 duration-200 hover:bg-blue-100 rounded-full"
-                    >
-                      {item.name}
-                    </button>
-                  </li>
-                ) : null
-              )}
-              {authStatus && (
-                <li>
-                  <LogoutBtn />
+        <nav className="flex">
+          <div className="mr-4">
+            <Link to="/">
+              <Logo width="70px" />
+            </Link>
+          </div>
+          <ul className="flex ml-auto">
+            {navItems.map((item) =>
+              item.active ? (
+                <li key={item.name}>
+                  <button
+                    onClick={() => navigate(item.slug)}
+                    className="inline-bock px-6 py-2 duration-200 hover:bg-blue-100 rounded-full"
+                  >
+                    {item.name}
+                  </button>
                 </li>
-              )}
-            </ul>
-          </nav>
-        </>
+              ) : null
+            )}
+            {authStatus && (
+              <li>
+                <LogoutBtn />
+              </li>
+            )}
+          </ul>
+        </nav>
       </Container>
     </header>
   );

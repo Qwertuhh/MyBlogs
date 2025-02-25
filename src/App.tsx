@@ -1,8 +1,9 @@
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import Auth from "./appwrite/auth";
+import { Outlet } from "react-router-dom";
+import { Footer, Header} from "./components";
 
-// import { Client, Account } from "appwrite";
 function App() {
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
@@ -19,26 +20,18 @@ function App() {
       .catch((e) => console.error(e))
       .finally(() => setLoading(false));
   });
-  // {
-  //   const client = new Client();
 
-  //   client
-  //     .setEndpoint("https://cloud.appwrite.io/v1")
-  //     .setProject("67b5e5d2003811522dfd"); // Replace with your project ID
-
-  //   const account = new Account(client);
-
-  //   console.log(account);
-  //   (async function () {
-  //     try {
-  //       console.log(await account.get());
-  //     } catch (error) {
-  //       console.error(error);
-  //     }
-  //   })();
-  // }
-
-  return loading && <div>Loading...</div>;
+  return !loading ? (
+    <div className="min-h-screen flex flex-wrap content-between bg-gray-400">
+      <div className="w-full block">
+        <Header />
+        <main>
+          TODO: <Outlet />
+        </main>
+        <Footer />
+      </div>
+    </div>
+  ) : null;
 }
 
 export default App;

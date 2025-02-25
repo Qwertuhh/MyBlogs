@@ -3,7 +3,7 @@ import { Client, Databases, Query } from "appwrite";
 
 class Database {
   client = new Client();
-  databases = new Databases(this.client);
+  databases;
 
   constructor() {
     this.client = new Client()
@@ -54,12 +54,12 @@ class Database {
     {
       title,
       content,
-      image,
+      featuredImage,
       status,
     }: {
       title: string;
       content: string;
-      image: string;
+      featuredImage: string;
       status: boolean;
     }
   ) {
@@ -72,7 +72,7 @@ class Database {
         {
           title,
           content,
-          image,
+          featuredImage,
           date,
           status,
         }
@@ -92,8 +92,8 @@ class Database {
       return true;
     } catch (e) {
       console.error(e);
+      return false;
     }
-    return false;
   }
 
   async getPost(slug: string) {
@@ -105,8 +105,8 @@ class Database {
       );
     } catch (e) {
       console.error(e);
+      return false;
     }
-    return false;
   }
 
   async getPosts(queries = [Query.equal("status", true)]) {
@@ -118,8 +118,10 @@ class Database {
       );
     } catch (e) {
       console.error(e);
+      return false;
     }
-    return false;
   }
 }
-export default new Database();
+
+const database = new Database();
+export default database;

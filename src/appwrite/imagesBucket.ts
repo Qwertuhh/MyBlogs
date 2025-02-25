@@ -16,14 +16,17 @@ class Images {
       );
     } catch (error) {
       console.error(error);
+      return false;
     }
   }
 
   async deleteImage(id: string) {
     try {
-      return await this.buckets.deleteFile(config.appwriteBucketId, id);
+      await this.buckets.deleteFile(config.appwriteBucketId, id);
+      return true;
     } catch (error) {
       console.error(error);
+      return false;
     }
   }
 
@@ -35,4 +38,6 @@ class Images {
     }
   }
 }
-export default new Images();
+
+const images = new Images();
+export default images;

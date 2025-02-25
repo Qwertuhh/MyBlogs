@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AuthState } from "../../types/globalTypes";
+import { Data } from "../../types/globalTypes";
 
 const initialState: AuthState = {
   status: false,
-  userData: null,
+  userData: {} as Data,
 };
 
 const authSlice = createSlice({
@@ -16,7 +17,7 @@ const authSlice = createSlice({
     },
     logout: (state) => {
       state.status = false;
-      state.userData = null;
+      state.userData = {} as Data;
     },
   },
 });

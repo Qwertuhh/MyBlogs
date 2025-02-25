@@ -1,30 +1,23 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { AuthState } from "../types/globalTypes";
 
-function AuthLayout({
-  children,
-  authenticated = true,
-}: {
+export default function Protected({ children, authentication = true }: {
   children: React.ReactNode;
-  authenticated: boolean;
-}) {
+  authentication?: boolean;}) {
   const navigate = useNavigate();
   const [loader, setLoader] = useState(true);
-  const authStatus = useSelector(
-    (state: { auth: AuthState }) => state.auth.status
-  );
+  const authStatus = useSelector((state: { auth: AuthState }) => state.auth.status);
 
   useEffect(() => {
-    if (authenticated && authenticated !== authStatus) {
+    if (authentication && authStatus !== authentication) {
       navigate("/login");
-    }else{
+    } else if (!authentication && authStatus !== authentication) {
       navigate("/");
     }
     setLoader(false);
-  },[authenticated, authStatus, navigate]);
-  return loader ? <div>Loading...</div> : <>{children}</>;
-}
+  }, [authStatus, navigate, authentication]);
 
-export default AuthLayout;
+  return loader ? <h1>Loading...</h1> : <>{children}</>;
+}

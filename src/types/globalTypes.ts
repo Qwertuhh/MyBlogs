@@ -1,6 +1,14 @@
+interface Data {
+  title: string;
+  content: string;
+  userId: string;
+  featuredImage: string;
+  date: string;
+  status: boolean;
+  $id: string;
+}
 interface AuthState {
   status: boolean;
-  userData: null | unknown;
+  userData: Data;
 }
-
-export { type AuthState };
+export { type AuthState, type Data };
