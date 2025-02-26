@@ -6,9 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { AuthState } from "../../types/globalTypes";
 
 function Header() {
-  const authStatus = useSelector((state: { auth: AuthState }) => state.auth.status ?? false);
-  console.assert(authStatus);
+  const authStatus = useSelector((state: { auth: AuthState }) =>
+    state.auth.status ? true : false
+  );
   const navigate = useNavigate();
+  if (!authStatus) return;
 
   const navItems = [
     {
