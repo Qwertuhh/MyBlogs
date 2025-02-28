@@ -7,7 +7,7 @@ import { AuthState } from "../../types/globalTypes";
 
 function Header() {
   const authStatus = useSelector((state: { auth: AuthState }) =>
-    state.auth.status ? true : false
+    state.auth?.status ? true : false
   );
   const navigate = useNavigate();
   if (!authStatus) return;
